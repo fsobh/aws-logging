@@ -1,0 +1,17 @@
+{
+  "name": "aws-lamda-logger",
+  "version": "1.0.0",
+  "description": "Logs and saves logs \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[Saves Logs ()\u001b[DError / Info)\u001b[D / )\u001b[DWarn)\u001b[D\u001b[C to an AWS DynamoDb\u001b[D\u001b[D\u001b[C\u001b[C\u001b[",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fsobh",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1079.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
