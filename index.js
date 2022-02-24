@@ -1,11 +1,43 @@
 
 let AWS = require("aws-sdk");
-const TABLE_NAME = "SERVICE-LOGS"
+
 AWS.config.update({
     region: "us-east-2",
 });
 
-const  tableExists = (tableName = TABLE_NAME, region = "us-east-2" ) => 
+
+let config = {
+    
+    tableName : "SERVICE-LOGS",
+    mailList : [],
+    notifyOnSeverityLevel : 5,
+    serviceName : null,
+    enableNotifications : false,
+    region : "us-east-2",
+    /**
+     * @param {any} config
+     */
+     update(config)  {
+        if(config.tableName)
+            this.tableName = config.tableName
+        if(config.mailList && Array.isArray(config.mailList))
+            this.mailList = config.mailList
+        if(config.notifyOnSeverityLevel)
+            this.notifyOnSeverityLevel = config.notifyOnSeverityLevel
+        if(config.serviceName)
+            this.serviceName = config.serviceName
+        if(config.enableNotifications)
+            this.enableNotifications = config.enableNotifications
+        if(config.region){
+            AWS.config.update({region:config.region}) 
+            this.region = config.region
+           
+        }
+
+    }
+
+}
+const  tableExists =  (tableName = config.tableName, region = config.region ) => 
 
 new Promise((resolve, reject)=> {
 
@@ -40,7 +72,8 @@ new Promise((resolve, reject)=> {
       resolve(false);
   }
 })
-const  createTable = (tableName = TABLE_NAME, region = "us-east-2") => {
+const  createTable =  (tableName = config.tableName, region = config.region ) => 
+{
 
     try {
         
@@ -131,24 +164,40 @@ dynamodb.createTable(params, function(tableErr, tableData) {
         
 }
 
- }
+}
+const  safetyCheck =  (tableName = config.tableName, region = config.region ) =>
 
-
-async function safetyCheck (tableName = TABLE_NAME, region = "us-east-2"){
-
+new Promise(async (resolve, reject)=> {
 try {
     
   
     if(!(await tableExists(tableName,region)))   
         createTable(tableName,region)
 
-    return true
+    resolve(true)
 } catch (error) {
     console.log(error)
-    return false
+    resolve(false)
 }
 
-}
+})
+
+const  log =  (message,type) =>
+
+    new Promise(async (resolve, reject)=> {
+
+        try {
+    
+            resolve(true)
+
+        } catch (error) {
+
+            console.log(error)
+            resolve(false)
+
+        }
+
+})
 
 exports.safetyCheck = safetyCheck
 //Will implement later
@@ -156,4 +205,4 @@ exports.safetyCheck = safetyCheck
 // exports.log = 
 // exports.warn = 
 // exports.error = 
-// exports.config = 
+exports.config = config
