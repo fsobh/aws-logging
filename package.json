@@ -9,7 +9,8 @@
   "author": "fsobh",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.1079.0"
+    "aws-sdk": "^2.1079.0",
+    "short-unique-id": "^4.4.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
