@@ -20,7 +20,7 @@
 ####  Install the Necessary Dependencies
 
 ```bash
-  npm install serverless -g 
+  npm install
 ```
  ## More Comming soon...
 
