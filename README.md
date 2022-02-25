@@ -7,7 +7,7 @@
 <div align="center">
 
 # aws-lambda-logger
-### *A logging utility that is used to track activity of multiple API services hosted on a single AWS Account. Has ability to send Email Notifications with severity levels configured. *
+### A logging utility that is used to track activity of multiple API services hosted on a single AWS Account. Has ability to send Email Notifications with severity levels configured.
 
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES9-%23FFFF00)](https://img.shields.io/badge/JavaScript-ES9-%23FFFF00)    [![Node](https://img.shields.io/badge/NodeJS-v14.0.1-brightgreen)](https://img.shields.io/badge/NodeJS-v14.x.x-brightgreen) 
