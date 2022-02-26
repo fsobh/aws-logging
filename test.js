@@ -1,5 +1,5 @@
 // let Logger = require('./index');
-
+let AWS = require("aws-sdk");
 // Logger.config.update(
 //     {
 //         tableName : "SERVICE-LOGS",
@@ -12,8 +12,11 @@
 //         enableNotifications : true,
 //         region : "us-east-2",
 
-//     }
-//     )
+//     })
+
+
+
+    console.log(AWS.config)
 
 
 

@@ -1,7 +1,7 @@
 {
-  "name": "aws-lamda-logger",
+  "name": "aws-logger",
   "version": "1.0.0",
-  "description": "Logs and saves logs \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[Saves Logs ()\u001b[DError / Info)\u001b[D / )\u001b[DWarn)\u001b[D\u001b[C to an AWS DynamoDb\u001b[D\u001b[D\u001b[C\u001b[C\u001b[",
+  "description": "Logs activity across all services under a single AWS account. Optional features can be enabled to trigger Email notifications based on the logs severity level",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

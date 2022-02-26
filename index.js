@@ -9,13 +9,12 @@ AWS.config.update({
 
 
 let config = {
-    
     tableName : "SERVICE-LOGS",
     mailList : [],
     stage : "Dev",
     mailSubject : "New AWS Log",
     sourceEmail : null,
-    notifyOnSeverityLevel : 5,
+    notifyOnSeverityLevel : 10,
     serviceName : null,
     enableNotifications : false,
     region : "us-east-2",
@@ -61,6 +60,15 @@ let config = {
                     
             else 
             console.log(`${config.sourceEmail} is not a valid Email`);
+        }
+        if(config.accessKeyId && config.secretAccessKey)
+        {
+            AWS.config.update(
+                {
+                    accessKeyId     : config.accessKeyId,
+                    secretAccessKey : config.secretAccessKey
+                }
+            )
         }
 
     }
@@ -279,7 +287,7 @@ new Promise(async (resolve, reject)=> {
         resolve(false);
     }
 })
-const  log =  (message, severity=0,details = false) =>
+const  log =  (message, severity=1,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
@@ -296,7 +304,7 @@ const  log =  (message, severity=0,details = false) =>
         }
 
 })
-const  warn =  (message, severity=0,details = false) =>
+const  warn =  (message, severity=2,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
@@ -313,7 +321,7 @@ const  warn =  (message, severity=0,details = false) =>
         }
 
 })
-const  error =  (message, severity=0,details = false) =>
+const  error =  (message, severity=3,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
