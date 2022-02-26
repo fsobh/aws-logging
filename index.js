@@ -2,6 +2,7 @@
 let AWS = require("aws-sdk");
 const ShortUniqueId = require('short-unique-id');
 const Notifications = require("./Notifications")
+const Template = require('./Template')
 AWS.config.update({
     region: "us-east-2",
 });
@@ -12,6 +13,7 @@ let config = {
     tableName : "SERVICE-LOGS",
     mailList : [],
     stage : "Dev",
+    mailSubject : "New AWS Log",
     sourceEmail : null,
     notifyOnSeverityLevel : 5,
     serviceName : null,
@@ -34,7 +36,8 @@ let config = {
             }
         
         }
-            
+        if(config.mailSubject)
+            this.mailSubject = config.mailSubject   
         if(config.notifyOnSeverityLevel)
             this.notifyOnSeverityLevel = config.notifyOnSeverityLevel
         if(config.serviceName)
@@ -49,7 +52,13 @@ let config = {
         }
         if(config.sourceEmail){
             if(Notifications.validateEmail(config.sourceEmail))
-                this.sourceEmail = config.sourceEmail
+                Notifications.isVerified(config.sourceEmail).then(res => {
+                    console.log(res)
+                    if(Boolean(res) === true)
+                    this.sourceEmail = config.sourceEmail
+                    else console.log(`"${config.sourceEmail}" Must be a verified Email or Domain in your AWS account. Configure this in SES settings in your AWS account`);
+                })
+                    
             else 
             console.log(`${config.sourceEmail} is not a valid Email`);
         }
@@ -202,7 +211,7 @@ try {
 }
 
 })
-const  Save =  (message, type = "INFO", severity=0) =>
+const  Save =  (message, type = "INFO", severity=0, details = false) =>
 new Promise(async (resolve, reject)=> {
     try {
 
@@ -231,7 +240,13 @@ new Promise(async (resolve, reject)=> {
         if(Boolean(config.enableNotifications) === true && severity && severity >= config.notifyOnSeverityLevel){
             if(Array.isArray(config.mailList) && config.mailList.length > 0){
                 if(config.sourceEmail){
-                    //TODO : send email
+                
+                
+                    if(details)
+                        await Notifications.sendMail(message,config.mailList,config.mailSubject,Template.generateReportTemplateWithDetails(message,Date.now().toLocaleString(),config.serviceName,severity,details,type),config.sourceEmail)
+                    else
+                        await Notifications.sendMail(message,config.mailList,config.mailSubject,Template.generateReportTemplate(message,Date.now().toLocaleString(),config.serviceName,severity,type),config.sourceEmail)
+
                 }
                 else
                     console.error("Source Email was not configured");
@@ -264,14 +279,14 @@ new Promise(async (resolve, reject)=> {
         resolve(false);
     }
 })
-const  log =  (message, severity=0) =>
+const  log =  (message, severity=0,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
         try {
     
             console.log(message)
-            Save(message,"INFO",severity);
+            Save(message,"INFO",severity,details);
             resolve(true);
         } catch (error) {
 
@@ -281,14 +296,14 @@ const  log =  (message, severity=0) =>
         }
 
 })
-const  warn =  (message, severity=0) =>
+const  warn =  (message, severity=0,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
         try {
     
             console.log(message)
-            Save(message,"WARN",severity);
+            Save(message,"WARN",severity,details);
             resolve(true);
         } catch (error) {
 
@@ -298,14 +313,14 @@ const  warn =  (message, severity=0) =>
         }
 
 })
-const  error =  (message, severity=0) =>
+const  error =  (message, severity=0,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
         try {
     
             console.log(message)
-            Save(message,"ERROR",severity);
+            Save(message,"ERROR",severity,details);
             resolve(true);
         } catch (error) {
 
