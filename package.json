@@ -1,10 +1,14 @@
 {
-  "name": "aws-logger",
+  "name": "aws-logging",
   "version": "1.0.0",
   "description": "Logs activity across all services under a single AWS account. Optional features can be enabled to trigger Email notifications based on the logs severity level",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fsobh/aws-logging.git"
   },
   "author": "fsobh",
   "license": "MIT",
