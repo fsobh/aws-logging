@@ -64,7 +64,8 @@ try {
     return re.test(String(email).toLowerCase());
   },
   extractDomain(email){
-
+    if (!email || typeof email !== "string") return false;
+    
     if(!this.validateEmail(email)) return "That was not an email"
  
     return email.substring(email.indexOf("@") + 1);
