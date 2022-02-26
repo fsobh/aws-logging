@@ -208,11 +208,11 @@ new Promise(async (resolve, reject)=> {
 try {
     
     const made = await tableExists()
-
+    console.log(made)
     if(!made)  
         createTable()
     
-    resolve(true)
+    resolve(made)
 } catch (error) {
     console.log(error)
     resolve(false)
