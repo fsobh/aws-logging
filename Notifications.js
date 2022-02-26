@@ -4,7 +4,7 @@ let sns = new AWS.SNS();
 var ses = new AWS.SES();
 
 module.exports = {
-  sendText: async function (phone, message) {
+sendText: async function (phone, message) {
     
 try {
 
@@ -23,8 +23,8 @@ try {
     return false   
 }
 
-  },
-  sendMail : async function (Message,To,Subject , Html = `<div></div>`,sender) {
+},
+sendMail : async function (Message,To,Subject , Html = `<div></div>`,sender) {
 
     try {
         
@@ -56,29 +56,28 @@ try {
     console.error("SES ERROR:", error);
     return false   
 }
-  },
-  validateEmail(email) {
+},
+validateEmail(email) {
     if (!email || typeof email !== "string") return false;
 
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
-  },
-  extractDomain(email){
+},
+extractDomain(email){
     if (!email || typeof email !== "string") return false;
-    
+
     if(!this.validateEmail(email)) return "That was not an email"
  
     return email.substring(email.indexOf("@") + 1);
-  },
-  validatePhoneNumber(phone) {
+},
+validatePhoneNumber(phone) {
     if (!phone ||  typeof phone !== "string") return false;
 
     var phoneRe = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
 
     return phoneRe.test(phone);
-  },
-
- fetchVerifiedSenders  () {
+},
+fetchVerifiedSenders  () {
 
     return new Promise(resolve => {
        try {
@@ -108,7 +107,7 @@ try {
   })
 
 },
- isVerified(sender) {
+isVerified(sender) {
   return new Promise(  resolve => {
   try {
     let list = []
