@@ -7,12 +7,12 @@
 <div align="center">
 
 # aws-lambda-logger
-### A logging utility that is used to track activity of multiple API services hosted on a single AWS Account. Has ability to send Email Notifications with severity levels configured.
+### A logging utility that is used to track activity of multiple API services hosted on a single AWS Account. Has the ability to send Email Alert Notifications when severity levels are configured and logged.
 
 
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES9-%23FFFF00)](https://img.shields.io/badge/JavaScript-ES9-%23FFFF00)    [![Node](https://img.shields.io/badge/NodeJS-v14.0.1-brightgreen)](https://img.shields.io/badge/NodeJS-v14.x.x-brightgreen) 
+[![JavaScript](https://img.shields.io/badge/JavaScript-%23FFFF00)](https://img.shields.io/badge/JavaScript-%23FFFF00)    [![Node](https://img.shields.io/badge/NodeJS-v14.0.1-brightgreen)](https://img.shields.io/badge/NodeJS-v14.x.x-brightgreen) 
  [![AWS](https://img.shields.io/badge/AWS-Cloud%20provider-orange)](https://img.shields.io/badge/AWS-Cloud%20provider-orange)
-[![Dynamo](https://img.shields.io/badge/DynamoDB-Database-blue)](https://img.shields.io/badge/DynamoDB-Database-blue) [![Lambda](https://img.shields.io/badge/Lambda-service-%20%09%23a26c2f)](https://img.shields.io/badge/Lambda-service-%20%09%23a26c2f)
+[![Dynamo](https://img.shields.io/badge/DynamoDB-Database-blue)](https://img.shields.io/badge/DynamoDB-Database-blue) [![Lambda](https://img.shields.io/badge/Lambda-service-%20%09%23a26c2f)](https://img.shields.io/badge/Lambda-service-%20%09%23a26c2f)  [![SES](https://img.shields.io/badge/SES-aws--sdk-yellowgreen)](https://img.shields.io/badge/SES-aws--sdk-yellowgreen)
 </div>
 
 
