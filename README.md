@@ -6,8 +6,8 @@
 
 <div align="center">
 
-# aws-lambda-logger
-### A logging utility that is used to track activity of multiple API services hosted on a single AWS Account. Has the ability to send Email Alert Notifications when severity levels are configured and logged.
+# aws-logging
+### Logs activity across all services under a single AWS account. Optional features can be enabled to trigger Email notifications based on the logs severity level.
 
 
 [![JavaScript](https://img.shields.io/badge/JavaScript-%23FFFF00)](https://img.shields.io/badge/JavaScript-%23FFFF00)    [![Node](https://img.shields.io/badge/NodeJS-v14.0.1-brightgreen)](https://img.shields.io/badge/NodeJS-v14.x.x-brightgreen) 
@@ -20,13 +20,13 @@
 ####  Install the Package
 
 ```bash
-  npm install aws-logger
+  npm install aws-logging
 ```
 
 ## Import the module
 
 ```javascript
- let Logger = require('aws-logger');
+ let Logger = require('aws-logging');
 ```
 
 ## Configure your logger
