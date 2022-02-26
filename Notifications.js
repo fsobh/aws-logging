@@ -115,6 +115,7 @@ isVerified(sender) {
 
     this.fetchVerifiedSenders().then(all=> {
       list = all    
+      console.log("Verified : ", list)
     }).finally(()=> {
 
         for(var c = 0 ; c < list.length ; c ++ ){
