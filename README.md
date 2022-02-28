@@ -48,6 +48,28 @@
 
     });
 ```
+# IMPORTANT :
+
+### Make sure the IAM role has the following permissions enabled on AWS AND in your app.
+(The role you generated your  Access Key  and Secret from)
+
+```yaml
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "logs:*"
+      Resource: "*" 
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: "*"
+    - Effect: "Allow"
+      Action: "ses:ListIdentities"
+      Resource: "*" 
+    - Effect: "Allow"
+      Action: "ses:SendEmail"
+      Resource: "*"
+```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
