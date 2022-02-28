@@ -1,8 +1,8 @@
 
 let AWS = require("aws-sdk");
 const ShortUniqueId = require('short-unique-id');
-const Notifications = require("./Notifications")
-const Template = require('./Template')
+const Notifications = require("./Notifications");
+const Template = require('./Template');
 AWS.config.update({
     region: "us-east-2",
 });
@@ -23,7 +23,7 @@ let config = {
      */
      update(config)  {
         if(config.tableName)
-            this.tableName = config.tableName
+            this.tableName = config.tableName;
         if(config.mailList && Array.isArray(config.mailList)){
 
             for (let i = 0 ; i < config.mailList.length ; i ++ )
@@ -36,28 +36,26 @@ let config = {
         
         }
         if(config.mailSubject)
-            this.mailSubject = config.mailSubject   
+            this.mailSubject = config.mailSubject;  
         if(config.notifyOnSeverityLevel)
-            this.notifyOnSeverityLevel = config.notifyOnSeverityLevel
+            this.notifyOnSeverityLevel = config.notifyOnSeverityLevel;
         if(config.serviceName)
-            this.serviceName = config.serviceName
+            this.serviceName = config.serviceName;
         if(config.stage)
-            this.stage = config.stage
+            this.stage = config.stage;
         if(config.enableNotifications)
-            this.enableNotifications = config.enableNotifications
+            this.enableNotifications = config.enableNotifications;
         if(config.region){
-            AWS.config.update({region:config.region}) 
-            this.region = config.region       
+            AWS.config.update({region:config.region});
+            this.region = config.region;     
         }
         if(config.sourceEmail){
             if(Notifications.validateEmail(config.sourceEmail))
                 Notifications.isVerified(config.sourceEmail).then(res => {
-                    console.log(res)
-                    if(Boolean(res) === true)
-                    this.sourceEmail = config.sourceEmail
+                    console.log(res);
+                    if(Boolean(res) === true) this.sourceEmail = config.sourceEmail;
                     else console.log(`"${config.sourceEmail}" Must be a verified Email or Domain in your AWS account. Configure this in SES settings in your AWS account`);
-                })
-                    
+                });                    
             else 
             console.log(`${config.sourceEmail} is not a valid Email`);
         }
@@ -68,12 +66,12 @@ let config = {
                     accessKeyId     : config.accessKeyId,
                     secretAccessKey : config.secretAccessKey
                 }
-            )
+            );
         }
 
     }
 
-}
+};
 const  tableExists =  () => 
 
 new Promise((resolve, reject)=> {
@@ -108,7 +106,7 @@ new Promise((resolve, reject)=> {
       console.error(`** ERROR ** -- Table "${config.tableName}" resource not found`,error.message); // an error occurred
       resolve(false);
   }
-})
+});
 const  createTable =  () => 
 {
 
@@ -192,7 +190,7 @@ dynamodb.createTable(params, function(tableErr, tableData) {
         return true;
     }
 
-    })
+    });
 
 } catch (error) {
 
@@ -201,44 +199,44 @@ dynamodb.createTable(params, function(tableErr, tableData) {
         
 }
 
-}
+};
 const  safetyCheck =  () =>
 
 new Promise(async (resolve, reject)=> {
 try {
     
-    const made = await tableExists()
-    console.log(made)
+    const made = await tableExists();
+   
     if(!made)  
-        createTable()
+        createTable();
     
-    resolve(made)
+    resolve(made);
 } catch (error) {
-    console.log(error)
-    resolve(false)
+    console.log(error);
+    resolve(false);
 }
 
-})
+});
 const  Save =  (message, type = "INFO", severity=0, details = false) =>
 new Promise(async (resolve, reject)=> {
     try {
 
         if (!config.tableName || typeof config.tableName !== "string")
-            throw new Error("Table Name was not configured");
+                throw new Error("Table Name was not configured");
         
         if (!config.region || typeof config.region !== "string")
-            throw new Error("Region was not configured");
+                throw new Error("Region was not configured");
         
         if (!config.serviceName || typeof config.serviceName !== "string")
-            throw new Error("Service Name was not configured");
+                throw new Error("Service Name was not configured");
         
         if (!type || typeof type !== "string" || (type !== "INFO" && type !== "WARN" && type !== "ERROR"))
-            throw new Error("Not a Valid Log type");
+                throw new Error("Not a Valid Log type");
     
         if (!message || typeof message !== "string")
-            throw new Error("Log message required");
+                throw new Error("Log message required");
 
-        safetyCheck()
+        await safetyCheck();
 
         let dynamoDB = new AWS.DynamoDB.DocumentClient({
             apiVersion: "2012-08-10",
@@ -251,9 +249,9 @@ new Promise(async (resolve, reject)=> {
                 
                 
                     if(details)
-                        await Notifications.sendMail(message,config.mailList,config.mailSubject,Template.generateReportTemplateWithDetails(message,Date.now().toLocaleString(),config.serviceName,severity,details,type),config.sourceEmail)
+                        await Notifications.sendMail(message,config.mailList,config.mailSubject,Template.generateReportTemplateWithDetails(message,Date.now().toLocaleString(),config.serviceName,severity,details,type),config.sourceEmail);
                     else
-                        await Notifications.sendMail(message,config.mailList,config.mailSubject,Template.generateReportTemplate(message,Date.now().toLocaleString(),config.serviceName,severity,type),config.sourceEmail)
+                        await Notifications.sendMail(message,config.mailList,config.mailSubject,Template.generateReportTemplate(message,Date.now().toLocaleString(),config.serviceName,severity,type),config.sourceEmail);
 
                 }
                 else
@@ -270,9 +268,8 @@ new Promise(async (resolve, reject)=> {
         Log.SERVICE = config.serviceName;
         Log.TYPE = type;
         Log.MESSAGE = message;
-        Log.SEVERITY = severity
-        Log.STAGE = config.stage
-       
+        Log.SEVERITY = severity;
+        Log.STAGE = config.stage;
 
         const parameters = {
             TableName: config.tableName,
@@ -286,65 +283,63 @@ new Promise(async (resolve, reject)=> {
         console.error("Log save Error: ", err);
         resolve(false);
     }
-})
+});
 const  log =  (message, severity=1,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
         try {
     
-            console.log(message)
-            Save(message,"INFO",severity,details);
+            console.log(message);
+            await Save(message,"INFO",severity,details);
             resolve(true);
         } catch (error) {
 
-            console.log(error)
-            resolve(false)
+            console.log(error);
+            resolve(false);
 
         }
 
-})
+});
 const  warn =  (message, severity=2,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
         try {
     
-            console.log(message)
-            Save(message,"WARN",severity,details);
+            console.warn(message);
+            await Save(message,"WARN",severity,details);
             resolve(true);
         } catch (error) {
 
-            console.log(error)
-            resolve(false)
+            console.log(error);
+            resolve(false);
 
         }
 
-})
+});
 const  error =  (message, severity=3,details = false) =>
 
     new Promise(async (resolve, reject)=> {
 
         try {
     
-            console.log(message)
-            Save(message,"ERROR",severity,details);
+            console.error(message);
+            await Save(message,"ERROR",severity,details);
             resolve(true);
         } catch (error) {
 
-            console.log(error)
-            resolve(false)
+            console.log(error);
+            resolve(false);
 
         }
 
-})
+});
 
-exports.safetyCheck = safetyCheck
-exports.log         = log
-exports.Save        = Save
-exports.warn        = warn
-exports.error       = error 
-exports.config      = config
+exports.safetyCheck = safetyCheck;
+exports.log         = log;
+exports.Save        = Save;
+exports.warn        = warn;
+exports.error       = error; 
+exports.config      = config;
 
-// Logger.config.update({serviceName : "ass"})
-// Logger.error("ass")
