@@ -13,7 +13,7 @@ let config = {
     mailList : [],
     stage : "Dev",
     mailSubject : "New AWS Log",
-    sourceEmail : null,
+    sourceEmail : false,
     notifyOnSeverityLevel : 10,
     serviceName : null,
     enableNotifications : false,
@@ -245,6 +245,7 @@ new Promise(async (resolve, reject)=> {
         //Notification Trigger
         if(Boolean(config.enableNotifications) === true && severity && severity >= config.notifyOnSeverityLevel){
             if(Array.isArray(config.mailList) && config.mailList.length > 0){
+                console.log(config.sourceEmail)
                 if(config.sourceEmail){
                 
                 
