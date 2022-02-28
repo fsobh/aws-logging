@@ -340,10 +340,11 @@ const  error =  (message, severity=3,details = false) =>
 })
 
 exports.safetyCheck = safetyCheck
-exports.log    = log
-exports.warn   = warn
-exports.error  = error 
-exports.config = config
+exports.log         = log
+exports.Save        = Save
+exports.warn        = warn
+exports.error       = error 
+exports.config      = config
 
 // Logger.config.update({serviceName : "ass"})
 // Logger.error("ass")
