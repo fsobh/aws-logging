@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://chain.link/" title="chainlink">
+    <a href="https://aws.amazon.com" title="AWS">
         <img  height=230px src="https://pbs.twimg.com/profile_images/1473756532827246593/KRgw2UkV_400x400.jpg" alt="AWS">
     </a>
 </p>
@@ -68,7 +68,53 @@
 | :-------- | :------- | :-------------------------------- |
 | `message`      | `String`| **Required**. The message you want to log |
 | `severity`       | `Array` | **Optional**. Severity level (max 10 - min 0). **Defaults : `{Log : 1 , Warn : 2 , Error : 3}`** |
-| `details`     | `Any` | **Optional**. Any additional details you may want to add. **Defaults to false**  |
+| `details`     | `JSON Object` | **Optional**. Any additional details you may want to add. **Defaults to false**  |
+
+### Partial example from this [example app](https://github.com/fsobh/Chainlink-External-Initiator-Template/blob/Dev/app.js)
+
+```javascript
+var express = require('express');
+const serverless = require('serverless-http');
+var app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+const Logger = require("aws-logging");
+
+Logger.config.update({
+  
+    mailList : [process.env.RECIEVER_EMAIL_1],
+    sourceEmail : process.env.SOURCE_EMAIL,
+    notifyOnSeverityLevel : 5,
+    serviceName : process.env.SERVICE_NAME,
+    enableNotifications : true,
+    region:"us-east-2",
+    accessKeyId : process.env.KEY,
+    secretAccessKey : process.env.SECRET
+
+})
+app.get('/', async function (req, res) {
+
+    try {
+
+        await Logger.log("Health Check ran", 1, {request : {body : JSON.parse(JSON.stringify(req.body))}});
+        res.sendStatus(200);
+        
+    } catch (error) {
+        
+        await Logger.error(error.message,3,
+            {
+                stack : error.stack,
+                error : String(error)
+            });
+        res.send({'error' : error}).sendStatus(500);
+    }
+
+})
+
+module.exports.handler = serverless(app);
+```
+
+
 
 ####  Log
 ```javascript
