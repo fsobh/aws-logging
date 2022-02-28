@@ -1,6 +1,6 @@
 {
   "name": "aws-logging",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Logs activity across all services under a single AWS account. Optional features can be enabled to trigger Email notifications based on the logs severity level",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   
 
-  
+  "keywords": ["aws logger", "log alerts", "AWS", "Utility", "save logs"],
   "author": "Fadel Sobh fsobh15@icloud.com (https://fadel.link/)",
   "license": "MIT",
   "dependencies": {
