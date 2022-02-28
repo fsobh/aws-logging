@@ -1,6 +1,6 @@
 {
   "name": "aws-logging",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Logs activity across all services under a single AWS account. Optional features can be enabled to trigger Email notifications based on the logs severity level",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,10 @@
     "type": "git",
     "url": "https://github.com/fsobh/aws-logging.git"
   },
-  "author": "fsobh",
+  
+
+  
+  "author": "Fadel Sobh fsobh15@icloud.com (https://fadel.link/)",
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.1079.0",
