@@ -72,28 +72,28 @@
 
 ####  Log
 ```javascript
- Logger.log("Logging data");
+ await Logger.log("Logging data");
  //or
- Logger.log("Logging data", 1);
+ await Logger.log("Logging data", 1);
  //or
- Logger.log("Logging data", 1 , {attribute1 : "1", attribute1 : "2", }); 
+ await Logger.log("Logging data", 1 , {attribute1 : "1", attribute1 : "2", }); 
 ```
 
 ####  Warn
 ```javascript
- Logger.warn("Warning data");
+ await Logger.warn("Warning data");
  //or
- Logger.warn("Warning data", 2);
+ await Logger.warn("Warning data", 2);
  //or
- Logger.warn("Warning data", 2 , {attribute1 : "1", attribute1 : "2", }); 
+ await Logger.warn("Warning data", 2 , {attribute1 : "1", attribute1 : "2", }); 
 ```
 
 ####  Error
 ```javascript
- Logger.error("Error data");
+ await Logger.error("Error data");
  //or
- Logger.error("Error data", 3);
+ await Logger.error("Error data", 3);
  //or
- Logger.error("Error data", 3 , {attribute1 : "1", attribute1 : "2", });  
+ await Logger.error("Error data", 3 , {attribute1 : "1", attribute1 : "2", });  
 ```
 
