@@ -271,6 +271,9 @@ new Promise(async (resolve, reject)=> {
         Log.SEVERITY = severity;
         Log.STAGE = config.stage;
 
+        if(details)
+            Log.Details = details;
+
         const parameters = {
             TableName: config.tableName,
             Item: Log,
