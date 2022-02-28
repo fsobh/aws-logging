@@ -272,7 +272,7 @@ new Promise(async (resolve, reject)=> {
         Log.STAGE = config.stage;
 
         if(details)
-            Log.Details = details;
+            Log.Details = JSON.stringify(details);
 
         const parameters = {
             TableName: config.tableName,
