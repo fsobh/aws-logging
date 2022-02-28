@@ -48,7 +48,7 @@ sendMail : async function (Message,To,Subject , Html = `<div></div>`,sender) {
    
     
     
-    let result = ses.sendEmail(params).promise()
+    let result = await ses.sendEmail(params).promise()
     console.log("SES:", result);
     return true;
 
