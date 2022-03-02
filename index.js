@@ -291,7 +291,7 @@ new Promise(async (resolve, reject)=> {
 });
 
 
-const log = (message, severity, details, type) =>
+const logit = (message, severity, details, type) =>
     new Promise(async (resolve, reject)=> {
 
         try {
@@ -311,22 +311,22 @@ const log = (message, severity, details, type) =>
 });
 
 const l =  (message, details = false, severity = 1) => 
-    log(message, severity, details, "INFO");
+    logit(message, severity, details, "INFO");
 
 const w =  (message, details = false, severity = 2) => 
-    log(message, severity, details, "WARN");
+    logit(message, severity, details, "WARN");
 
 const e =  (message, details = false, severity = 3) => 
-    log(message, severity, details, "ERROR");
+    logit(message, severity, details, "ERROR");
 
 const  log =  (message, severity=1,details = false) =>
-    log(message, severity, details, "INFO");
+    logit(message, severity, details, "INFO");
 
 const  warn =  (message, severity=2,details = false) =>
-    log(message, severity, details, "WARN");
+    logit(message, severity, details, "WARN");
 
 const  error =  (message, severity=3,details = false) =>
-    log(message, severity, details, "ERROR");
+    logit(message, severity, details, "ERROR");
 
 exports.safetyCheck = safetyCheck;
 exports.e           = e;
