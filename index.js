@@ -263,14 +263,15 @@ new Promise(async (resolve, reject)=> {
         }
 
         const uid = new ShortUniqueId({ length: 13 });
-        let Log={};
-        Log.ID = uid();
-        Log.TIMESTAMP = Date.now();
-        Log.SERVICE = config.serviceName;
-        Log.TYPE = type;
-        Log.MESSAGE = message;
-        Log.SEVERITY = severity;
-        Log.STAGE = config.stage;
+        let Log = {
+            ID : uid(),
+            TIMESTAMP : Date.now(),
+            SERVICE : config.serviceName,
+            TYPE : type,
+            MESSAGE : message,
+            SEVERITY : severity,
+            STAGE : config.stage
+        };
 
         if(details)
             Log.Details = JSON.stringify(details);
@@ -288,61 +289,50 @@ new Promise(async (resolve, reject)=> {
         resolve(false);
     }
 });
+
+
+const log = (message, severity, details, type) =>
+    new Promise(async (resolve, reject)=> {
+
+        try {
+            if(details)
+                console.log(message, details);
+            else
+                console.log(message);
+
+            await Save(message,type,severity,details);
+            resolve(true);
+        } catch (error) {
+
+            console.log(error);
+            resolve(false);
+
+        }
+});
+
+const l =  (message, details = false, severity = 1) => 
+    log(message, severity, details, "INFO");
+
+const w =  (message, details = false, severity = 2) => 
+    log(message, severity, details, "WARN");
+
+const e =  (message, details = false, severity = 3) => 
+    log(message, severity, details, "ERROR");
+
 const  log =  (message, severity=1,details = false) =>
+    log(message, severity, details, "INFO");
 
-    new Promise(async (resolve, reject)=> {
-
-        try {
-    
-            console.log(message);
-            await Save(message,"INFO",severity,details);
-            resolve(true);
-        } catch (error) {
-
-            console.log(error);
-            resolve(false);
-
-        }
-
-});
 const  warn =  (message, severity=2,details = false) =>
+    log(message, severity, details, "WARN");
 
-    new Promise(async (resolve, reject)=> {
-
-        try {
-    
-            console.warn(message);
-            await Save(message,"WARN",severity,details);
-            resolve(true);
-        } catch (error) {
-
-            console.log(error);
-            resolve(false);
-
-        }
-
-});
 const  error =  (message, severity=3,details = false) =>
-
-    new Promise(async (resolve, reject)=> {
-
-        try {
-    
-            console.error(message);
-            await Save(message,"ERROR",severity,details);
-            resolve(true);
-        } catch (error) {
-
-            console.log(error);
-            resolve(false);
-
-        }
-
-});
+    log(message, severity, details, "ERROR");
 
 exports.safetyCheck = safetyCheck;
+exports.e           = e;
+exports.l           = l;
+exports.w           = w;
 exports.log         = log;
-exports.Save        = Save;
 exports.warn        = warn;
 exports.error       = error; 
 exports.config      = config;
