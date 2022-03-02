@@ -18,6 +18,7 @@ let config = {
     serviceName : null,
     enableNotifications : false,
     region : "us-east-2",
+    dangerous: false,
     /**
      * @param {any} config
      */
@@ -236,7 +237,8 @@ new Promise(async (resolve, reject)=> {
         if (!message || typeof message !== "string")
                 throw new Error("Log message required");
 
-        await safetyCheck();
+        if(!config.dangerous)
+            await safetyCheck();
 
         let dynamoDB = new AWS.DynamoDB.DocumentClient({
             apiVersion: "2012-08-10",
