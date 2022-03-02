@@ -309,68 +309,23 @@ const executeLog = (message, severity, details, type) =>
         }
 });
 
-const l =  (message, details = false, severity = 1) => {
+const l =  (message, details = false, severity = 1) => 
     executeLog(message, severity, details, "INFO");
-}
-const w =  (message, details = false, severity = 2) => {
-    executeLog(message, severity, details, "WARN");
-}
-const e =  (message, details = false, severity = 3) => {
-    executeLog(message, severity, details, "ERROR");
-}
 
+const w =  (message, details = false, severity = 2) => 
+    executeLog(message, severity, details, "WARN");
+
+const e =  (message, details = false, severity = 3) => 
+    executeLog(message, severity, details, "ERROR");
 
 const  log =  (message, severity=1,details = false) =>
+    executeLog(message, severity, details, "INFO");
 
-    new Promise(async (resolve, reject)=> {
-
-        try {
-    
-            console.log(message);
-            await Save(message,"INFO",severity,details);
-            resolve(true);
-        } catch (error) {
-
-            console.log(error);
-            resolve(false);
-
-        }
-
-});
 const  warn =  (message, severity=2,details = false) =>
+    executeLog(message, severity, details, "WARN");
 
-    new Promise(async (resolve, reject)=> {
-
-        try {
-    
-            console.warn(message);
-            await Save(message,"WARN",severity,details);
-            resolve(true);
-        } catch (error) {
-
-            console.log(error);
-            resolve(false);
-
-        }
-
-});
 const  error =  (message, severity=3,details = false) =>
-
-    new Promise(async (resolve, reject)=> {
-
-        try {
-    
-            console.error(message);
-            await Save(message,"ERROR",severity,details);
-            resolve(true);
-        } catch (error) {
-
-            console.log(error);
-            resolve(false);
-
-        }
-
-});
+    executeLog(message, severity, details, "ERROR");
 
 exports.safetyCheck = safetyCheck;
 exports.e           = e;
