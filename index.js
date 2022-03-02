@@ -263,14 +263,15 @@ new Promise(async (resolve, reject)=> {
         }
 
         const uid = new ShortUniqueId({ length: 13 });
-        let Log={};
-        Log.ID = uid();
-        Log.TIMESTAMP = Date.now();
-        Log.SERVICE = config.serviceName;
-        Log.TYPE = type;
-        Log.MESSAGE = message;
-        Log.SEVERITY = severity;
-        Log.STAGE = config.stage;
+        let Log = {
+            ID : uid(),
+            TIMESTAMP : Date.now(),
+            SERVICE : config.serviceName,
+            TYPE : type,
+            MESSAGE : message,
+            SEVERITY : severity,
+            STAGE : config.stage
+        };
 
         if(details)
             Log.Details = JSON.stringify(details);
@@ -332,7 +333,6 @@ exports.e           = e;
 exports.l           = l;
 exports.w           = w;
 exports.log         = log;
-exports.Save        = Save;
 exports.warn        = warn;
 exports.error       = error; 
 exports.config      = config;
