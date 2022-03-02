@@ -288,6 +288,38 @@ new Promise(async (resolve, reject)=> {
         resolve(false);
     }
 });
+
+
+const executeLog = (message, severity, details, type) =>
+    new Promise(async (resolve, reject)=> {
+
+        try {
+            if(details)
+                console.log(message, details);
+            else
+                console.log(message);
+
+            await Save(message,type,severity,details);
+            resolve(true);
+        } catch (error) {
+
+            console.log(error);
+            resolve(false);
+
+        }
+});
+
+const l =  (message, details = false, severity = 1) => {
+    executeLog(message, severity, details, "INFO");
+}
+const w =  (message, details = false, severity = 2) => {
+    executeLog(message, severity, details, "WARN");
+}
+const e =  (message, details = false, severity = 3) => {
+    executeLog(message, severity, details, "ERROR");
+}
+
+
 const  log =  (message, severity=1,details = false) =>
 
     new Promise(async (resolve, reject)=> {
@@ -341,6 +373,9 @@ const  error =  (message, severity=3,details = false) =>
 });
 
 exports.safetyCheck = safetyCheck;
+exports.e           = e;
+exports.l           = l;
+exports.w           = w;
 exports.log         = log;
 exports.Save        = Save;
 exports.warn        = warn;

@@ -165,3 +165,30 @@ module.exports.handler = serverless(app);
  await Logger.error("Error data", 3 , {attribute1 : "1", attribute1 : "2", });  
 ```
 
+### Short Methods
+These shorter methods just swap the argument order for details and severity.
+
+####  Log
+```javascript
+ await Logger.l("Log data");
+ //or
+ await Logger.l("Log data with object", {attribute1 : "1", attribute1 : "2", });
+ //or
+ await Logger.l("Log data with object and sev", {attribute1 : "1", attribute1 : "2", }, 1);  
+```
+####  Warn
+```javascript
+ await Logger.w("Warn data");
+ //or
+ await Logger.w("Warn data with object", {attribute1 : "1", attribute1 : "2", });
+ //or
+ await Logger.w("Warn data with object and sev", {attribute1 : "1", attribute1 : "2", }, 2);  
+```
+####  Error
+```javascript
+ await Logger.e("Error data");
+ //or
+ await Logger.e("Error data with object", {attribute1 : "1", attribute1 : "2", });
+ //or
+ await Logger.e("Error data with object and sev", {attribute1 : "1", attribute1 : "2", }, 3);  
+```
