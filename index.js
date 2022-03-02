@@ -290,7 +290,7 @@ new Promise(async (resolve, reject)=> {
 });
 
 
-const executeLog = (message, severity, details, type) =>
+const log = (message, severity, details, type) =>
     new Promise(async (resolve, reject)=> {
 
         try {
@@ -310,22 +310,22 @@ const executeLog = (message, severity, details, type) =>
 });
 
 const l =  (message, details = false, severity = 1) => 
-    executeLog(message, severity, details, "INFO");
+    log(message, severity, details, "INFO");
 
 const w =  (message, details = false, severity = 2) => 
-    executeLog(message, severity, details, "WARN");
+    log(message, severity, details, "WARN");
 
 const e =  (message, details = false, severity = 3) => 
-    executeLog(message, severity, details, "ERROR");
+    log(message, severity, details, "ERROR");
 
 const  log =  (message, severity=1,details = false) =>
-    executeLog(message, severity, details, "INFO");
+    log(message, severity, details, "INFO");
 
 const  warn =  (message, severity=2,details = false) =>
-    executeLog(message, severity, details, "WARN");
+    log(message, severity, details, "WARN");
 
 const  error =  (message, severity=3,details = false) =>
-    executeLog(message, severity, details, "ERROR");
+    log(message, severity, details, "ERROR");
 
 exports.safetyCheck = safetyCheck;
 exports.e           = e;
